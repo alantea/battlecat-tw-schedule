@@ -1,0 +1,26 @@
+const stages = [
+    {id: 51,    value: 999999, max: 1, name: "EX貓咪半價出售", nodb: true},
+    {id: 1067,  value: 999999, max: 1, name: "小籠包★Q彈來襲", nodb: true},
+    {id: 1006,  value: 250,    max: 0, name: "貓咪券☆機會！"},
+    {id: 1007,  value: 400,    max: 0, name: "逆襲的河馬將"},
+    {id: 1078,  value: 400,    max: 1, name: "逆襲的臉君"},
+    {id: 1173,  value: 500,    max: 1, name: "大逆襲的鋼鐵熊"},
+    {id: 1028,  value: 500,    max: 0, name: "游擊戰經驗值喵！"},
+    {id: 1059,  value: 500,    max: 0, name: "超級游擊經驗值！"},
+    {id: 1124,  value: 500,    max: 0, name: "終極游擊經驗值！"},
+    {id: 1155,  value: 500,    max: 1, name: "超終極游擊經驗值喵！"},
+    {id: 1118,  value: 500,    max: 0, name: "貓薄荷挑戰"},
+    {id: 1183,  value: 6,      max: 1, name: "賀！6週年！！"},
+    {id: 11005, value: 999999, max: 1, name: "排行賽 六週年紀念大會"},
+    {id: 1033,  value: 999999, max: 1, name: "特別紀念"},
+    {id: 1034,  value: 999999, max: 1, name: "超強紀念"},
+    {id: 1035,  value: 999999, max: 1, name: "無敵紀念"},
+    {id: 1070,  value: 999999, max: 1, name: "絕佳紀念"},
+    {id: 1079,  value: 999999, max: 1, name: "卓越紀念"},
+    {id: 1146,  value: 999999, max: 1, name: "偉大紀念"},
+    {id: 24006, value: 999999, max: 1, name: "巨蛾蛾蛾強襲 ! (飛來Lv.1~Lv.20)"},
+    {id: 24007, value: 999999, max: 1, name: "巨蛾蛾蛾強襲 !! (飛來Lv.21~Lv.40)"},
+    {id: 24008, value: 999999, max: 1, name: "巨蛾蛾蛾強襲 !!! (飛來Lv.41~Lv.60)"},
+  ];
+
+export {stages}
