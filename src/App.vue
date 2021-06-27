@@ -157,7 +157,7 @@ Date.prototype.setCatDay = function(day) {
     return rdate;
 }
 
-import {stages} from './data/event'
+const axios = require('axios').default;
 
 export default {
   name: 'App',
@@ -167,6 +167,7 @@ export default {
       maxCol: 0,
       message: "",
       scheduleList: [],
+      stages: "",
     }
   },
   methods: {
@@ -331,7 +332,7 @@ export default {
 
       for (let i = 0; i < result.length; i++) {
         const event = result[i];
-        let stage = stages.find(e => e.id == event.id);
+        let stage = this.stages.find(e => e.id == event.id);
         if(typeof stage === "undefined") {
           stage = {id: event.id, value: 999999, max: 0, name: "未定義活動"};
         }
@@ -387,6 +388,16 @@ export default {
         tmpTime.slice(2,4)
       );
     }
+  },
+  mounted () {
+    axios.get("data/event.json")
+      .then( (response) => {
+        this.stages = response.data;
+      })
+      .catch(function (error) {
+        // alert("Get events error");
+        console.log(error);
+      });
   },
 }
 </script>
