@@ -29,6 +29,8 @@
     </button>
 
     <hr>
+  [table width=98% cellspacing=1 cellpadding=1 border=1]
+    <hr>
 
     <table>
       <thead>
@@ -62,20 +64,33 @@
             v-if="row.title"
             :rowspan="row.count"
           >
-          <b>
-            <span
-              v-if="row.nodb"
+            <b>
+              <span
+                v-if="row.nodb"
+              >
+                {{ row.name }}
+              </span>
+              <a
+                v-else
+                :href="row.nameLink"
+                target="_blank"
+              >
+                {{ row.name }}
+              </a>
+            </b>
+            <div
+              v-for="(nameRow, nameIdx) in row.nameList"
+              :key="'row' + idx + 'name' +nameIdx"
             >
-              {{ row.name }}
-            </span>
-            <a
-              v-else
-              :href="row.nameLink"
-              target="_blank"
-            >
-              {{ row.name }}
-            </a>
-          </b>
+              <b>
+                <a
+                  :href="nameRow.link"
+                  target="_blank"
+                >
+                  {{ nameRow.name }}
+                </a>
+              </b>
+            </div>
           </td>
           <td>
             <a
@@ -336,6 +351,24 @@ export default {
         if(typeof stage === "undefined") {
           stage = {id: event.id, value: 999999, max: 0, name: "未定義活動"};
         }
+        if(typeof stage.parent === "number") {
+          // Check parent event exists
+          let parentEvent = this.scheduleList.find(event => event.title == true && event.id == stage.parent);
+          if(typeof parentEvent !== "undefined") {
+            if(typeof parentEvent.nameList === "undefined") {
+              parentEvent.nameList = [];
+            }
+            const subBattledbLink = "https://battlecats-db.com/stage/s"+("00000" + event.id).slice(-5)+".html"
+            parentEvent.startLink += " "+subBattledbLink;
+            parentEvent.nameList.push({
+              name: stage.name,
+              link: subBattledbLink,
+            });
+          }
+
+          continue;
+        }
+
         const battledbLink = (typeof stage.nodb === "boolean" && stage.nodb ? "" : "https://battlecats-db.com/stage/s"+("00000" + event.id).slice(-5)+".html");
 
         for (let j = 0; j < event.list.length; j++) {
@@ -345,6 +378,7 @@ export default {
           const tmpEventTime = ("00"+schedule.getHours()).slice(-2)+":"+("00"+schedule.getMinutes()).slice(-2);
           
           let obj = {
+            id: stage.id,
             startTime: `${schedule.getFullYear()}/${schedule.getMonth()+1}/${schedule.getDate()} ${tmpEventTime}`,
             startLink: `https://calendar.google.com/calendar/render?action=TEMPLATE&text=貓戰-${stage.name}&dates=${eventStartStr}/${eventEndStr}&details=${battledbLink}`,
             list: [],
@@ -364,7 +398,7 @@ export default {
               time: "",
               link: "",
             };
-            tmpEvent.time = `${eventTime.getHours()}:${eventTime.getMinutes()}`
+            tmpEvent.time = `${eventTime.getHours()}:${("00" + eventTime.getMinutes()).slice(-2)}`
             tmpEvent.link = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=貓戰儲存體力-${stage.name}&dates=${eventTimeStr}/${eventTimeStr}&details=${battledbLink}`
             obj.list.push(tmpEvent);
 
