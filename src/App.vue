@@ -158,13 +158,18 @@ Date.prototype.setCatTime = function(time) {
 }
 Date.prototype.setCatDay = function(day) {
     var date = new Date(this.valueOf());
+    let ryear = date.getFullYear();
     let rmonth = date.getMonth()+1;
     if(toNumber(day) < date.getDate()) {
       rmonth++;
     }
+    if(rmonth > 12) {
+      ryear++;
+      rmonth = 1;
+    }
 
     var rdate = new Date(
-      date.getFullYear() + "-" +
+      ("0000" + ryear).slice(-4) + "-" +
       ("00" + rmonth).slice(-2) + "-" +
       ("00" + day).slice(-2) + "T" +
       "00:00"
